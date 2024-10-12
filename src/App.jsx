@@ -8,6 +8,7 @@ import {
 import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 
 import { AboutButton } from "./components/AboutButton";
+import Tasks from "./components/Tasks";
 
 export default function App() {
   return (
@@ -25,9 +26,7 @@ export default function App() {
 
       <Tabs fullWidth aria-label="Options">
         <Tab key="tasks" title="Tasks">
-          <Card>
-            <CardBody>Tasks component here</CardBody>
-          </Card>
+          <Tasks />
         </Tab>
         <Tab key="pomodoro" title="Pomodoro">
           <Card>
