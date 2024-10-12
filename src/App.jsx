@@ -1,10 +1,25 @@
-import { Button } from "@nextui-org/react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+} from "@nextui-org/react";
+
+import { AboutButton } from "./components/AboutButton";
+
 export default function App() {
   return (
-    <>
-      <div className="text-center my-5">
-        hello <Button>world!</Button>
-      </div>
-    </>
+    <div>
+      <Navbar maxWidth="full">
+        <NavbarBrand>
+          <p>TODORO</p>
+        </NavbarBrand>
+        <NavbarContent justify="end">
+          <NavbarItem>
+            <AboutButton />
+          </NavbarItem>
+        </NavbarContent>
+      </Navbar>
+    </div>
   );
 }
