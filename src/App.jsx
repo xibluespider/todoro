@@ -5,6 +5,8 @@ import {
   NavbarItem,
 } from "@nextui-org/react";
 
+import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
+
 import { AboutButton } from "./components/AboutButton";
 
 export default function App() {
@@ -20,6 +22,24 @@ export default function App() {
           </NavbarItem>
         </NavbarContent>
       </Navbar>
+
+      <Tabs fullWidth aria-label="Options">
+        <Tab key="tasks" title="Tasks">
+          <Card>
+            <CardBody>Tasks component here</CardBody>
+          </Card>
+        </Tab>
+        <Tab key="pomodoro" title="Pomodoro">
+          <Card>
+            <CardBody>Pomodoro component here</CardBody>
+          </Card>
+        </Tab>
+        <Tab key="binaural" title="Binaural">
+          <Card>
+            <CardBody>Binaural component here</CardBody>
+          </Card>
+        </Tab>
+      </Tabs>
     </div>
   );
 }
