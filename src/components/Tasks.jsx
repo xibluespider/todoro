@@ -17,7 +17,11 @@ export default function Tasks() {
 
     console.log(new_task_value);
 
-    setTasks((prevTasks) => [...prevTasks, new_task_value]);
+    const new_task = {
+      isComplete: false,
+      taskValue: new_task_value,
+    };
+    setTasks((prevTasks) => [...prevTasks, new_task]);
 
     event.target.reset();
   };
