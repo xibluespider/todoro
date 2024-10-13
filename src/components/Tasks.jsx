@@ -2,7 +2,11 @@ import { Button, Input, Checkbox, Card, CardBody } from "@nextui-org/react";
 
 import { Plus, Pencil, Trash } from "lucide-react";
 
+import useLocalStorage from "../hooks/useLocalStorage";
+
 export default function Tasks() {
+  const [tasks, setTasks] = useLocalStorage("todoro-tasks", []);
+
   const handleFormSubmit = (event) => {
     console.log("handleFormSubmit invoked");
 
@@ -12,6 +16,8 @@ export default function Tasks() {
     const new_task_value = formData.get("new_task_value");
 
     console.log(new_task_value);
+
+    setTasks((prevTasks) => [...prevTasks, new_task_value]);
 
     event.target.reset();
   };
