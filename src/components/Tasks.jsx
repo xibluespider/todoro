@@ -18,6 +18,7 @@ export default function Tasks() {
     addTask({ task_value: new_task_value });
 
     event.target.reset();
+    event.target.new_task_value.focus();
   };
 
   return (
