@@ -9,6 +9,7 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 
 import { AboutButton } from "./components/AboutButton";
 import Tasks from "./components/Tasks";
+import Pomodoro from "./components/Pomodoro";
 
 export default function App() {
   return (
@@ -29,9 +30,7 @@ export default function App() {
           <Tasks />
         </Tab>
         <Tab key="pomodoro" title="Pomodoro">
-          <Card>
-            <CardBody>Pomodoro component here</CardBody>
-          </Card>
+          <Pomodoro />
         </Tab>
         <Tab key="binaural" title="Binaural">
           <Card>
