@@ -1,7 +1,32 @@
+import { useState } from "react";
+
+import { useDisclosure } from "@nextui-org/react";
+
 import useLocalStorage from "./useLocalStorage";
 
 export const useTaskManager = () => {
   const [tasks, setTasks] = useLocalStorage("todoro-tasks", []);
+
+  const [editIndex, setEditIndex] = useState();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+
+  const triggerEditAt = ({ index }) => {
+    setEditIndex((prev) => index);
+    onOpen();
+  };
+
+  const handleEditTaskSubmitEvent = (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const edit_task_value = formData.get("edit_task_value");
+
+    editTaskAt({ index: editIndex, editValue: edit_task_value });
+
+    setEditIndex((prev) => null);
+    event.target.reset();
+    onClose();
+  };
 
   const addTask = ({ task_value }) => {
     const newTask = {
@@ -35,12 +60,30 @@ export const useTaskManager = () => {
     setTasks((prevTasks) => updatedTasks);
   };
 
+  const editTaskAt = ({ index, editValue }) => {
+    const updatedTasks = tasks.map((task, i) =>
+      i === index ? { ...task, taskValue: editValue } : task
+    );
+    setTasks((prevTasks) => updatedTasks);
+  };
+
   return {
     tasks,
     setTasks,
-    handleNewTaskSubmitEvent,
+
     addTask,
+    handleNewTaskSubmitEvent,
+
     toggleCompleteAt,
+
     deleteTaskAt,
+
+    triggerEditAt,
+    isOpen,
+    onOpen,
+    onOpenChange,
+    onClose,
+    handleEditTaskSubmitEvent,
+    editTaskAt,
   };
 };
