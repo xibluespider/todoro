@@ -9,6 +9,7 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 
 import { AboutButton } from "./components/AboutButton";
 import Tasks from "./components/Tasks";
+
 import Pomodoro from "./components/Pomodoro";
 
 export default function App() {
@@ -25,7 +26,12 @@ export default function App() {
         </NavbarContent>
       </Navbar>
 
-      <Tabs fullWidth aria-label="Options">
+      <Tabs
+        fullWidth
+        aria-label="Options"
+        defaultSelectedKey={"pomodoro"}
+        destroyInactiveTabPanel={false}
+      >
         <Tab key="tasks" title="Tasks">
           <Tasks />
         </Tab>
