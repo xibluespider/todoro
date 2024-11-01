@@ -5,12 +5,12 @@ import {
   NavbarItem,
 } from "@nextui-org/react";
 
-import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
+import { Tabs, Tab } from "@nextui-org/react";
 
 import { AboutButton } from "./components/AboutButton";
 import Tasks from "./components/Tasks";
-
 import Pomodoro from "./components/Pomodoro";
+import Binaural from "./components/Binaural";
 
 export default function App() {
   return (
@@ -29,7 +29,7 @@ export default function App() {
       <Tabs
         fullWidth
         aria-label="Options"
-        defaultSelectedKey={"pomodoro"}
+        defaultSelectedKey={"binaural"}
         destroyInactiveTabPanel={false}
       >
         <Tab key="tasks" title="Tasks">
@@ -39,9 +39,7 @@ export default function App() {
           <Pomodoro />
         </Tab>
         <Tab key="binaural" title="Binaural">
-          <Card>
-            <CardBody>Binaural component here</CardBody>
-          </Card>
+          <Binaural />
         </Tab>
       </Tabs>
     </div>
