@@ -29,7 +29,7 @@ export default function App() {
       <Tabs
         fullWidth
         aria-label="Options"
-        defaultSelectedKey={"binaural"}
+        defaultSelectedKey={"tasks"}
         destroyInactiveTabPanel={false}
       >
         <Tab key="tasks" title="Tasks">
