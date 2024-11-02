@@ -4,8 +4,19 @@ import { useDisclosure } from "@nextui-org/react";
 
 import useLocalStorage from "./useLocalStorage";
 
+const intialDefaultTasks = [
+  [
+    { isComplete: false, taskValue: "task one" },
+    { isComplete: false, taskValue: "task 2" },
+    { isComplete: false, taskValue: "task III" },
+  ],
+];
+
 export const useTaskManager = () => {
-  const [tasks, setTasks] = useLocalStorage("todoro-tasks", []);
+  const [tasks, setTasks] = useLocalStorage(
+    "todoro-tasks",
+    ...intialDefaultTasks
+  );
 
   const [editIndex, setEditIndex] = useState();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -29,6 +40,8 @@ export const useTaskManager = () => {
   };
 
   const addTask = ({ task_value }) => {
+    if (!task_value) return;
+
     const newTask = {
       isComplete: false,
       taskValue: task_value,
