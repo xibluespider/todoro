@@ -1,63 +1,58 @@
 import React, { useEffect, useRef, useState } from "react";
 
-function useFrequency({ type = "center", oscillator = "sine", gain = 1, hz }) {
+function useFrequency({ type = "center", oscType = "sine", gain = 1, hz }) {
   const [playing, setPlaying] = useState(false);
-  const ctxRef = useRef();
-  const o = useRef();
-  const gL = useRef();
-  const gR = useRef();
+  const ctxRef = useRef(null);
+  const o = useRef(null);
+  const g = useRef(null);
 
-  useEffect(() => {
+  const initializeAudioContext = () => {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
-
     const ctx = new AudioContext();
     const oscillator = ctx.createOscillator();
-    const gainL = ctx.createGain();
-    const gainR = ctx.createGain();
-    const m = ctx.createChannelMerger(2);
+    const gainNode = ctx.createGain();
 
-    oscillator.connect(gainL);
-    oscillator.connect(gainR);
-    gainR.connect(m, 0, 1);
-    gainL.connect(m, 0, 0);
-    m.connect(ctx.destination);
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
     oscillator.start();
 
     o.current = oscillator;
-    gL.current = gainL;
-    gR.current = gainR;
+    g.current = gainNode;
+
+    // Set initial values
+    o.current.type = oscType;
+    o.current.frequency.value = hz;
+    g.current.gain.value = gain;
 
     ctxRef.current = ctx;
     ctx.suspend();
-
-    return () => {
-      m.disconnect(ctx.destination);
-      ctx.close();
-    };
-  }, []);
+  };
 
   useEffect(() => {
-    if (o.current) o.current.type = oscillator;
-  }, [oscillator]);
+    if (o.current) o.current.type = oscType;
+  }, [oscType]);
 
   useEffect(() => {
     if (o.current) o.current.frequency.value = hz;
   }, [hz]);
 
   useEffect(() => {
-    if (gL.current)
-      gL.current.gain.value = type === "left" || type === "center" ? gain : 0;
-    if (gR.current)
-      gR.current.gain.value = type === "right" || type === "center" ? gain : 0;
-  }, [type, gain]);
+    if (g.current) g.current.gain.value = gain;
+  }, [gain]);
 
   const toggle = () => {
+    if (!ctxRef.current) {
+      initializeAudioContext();
+    }
     if (playing) ctxRef.current?.suspend();
     else ctxRef.current?.resume();
     setPlaying((play) => !play);
   };
 
   const start = () => {
+    if (!ctxRef.current) {
+      initializeAudioContext();
+    }
     if (!playing) ctxRef.current?.resume();
     setPlaying(true);
   };
